@@ -1,0 +1,1 @@
+<view class="nofriends data-v-596dfa2c"><image src="/static/image/rabbit.png" mode class="data-v-596dfa2c"></image><text class="data-v-596dfa2c">还没有好友哦，赶紧加好友吧~</text><view data-event-opts="{{[['tap',[['hiddenHandler',['$event']]]]]}}" class="confirm data-v-596dfa2c" bindtap="__e">知道啦</view></view>
