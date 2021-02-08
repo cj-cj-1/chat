@@ -232,7 +232,7 @@
 		padding-top: var(--status-bar-height);
 		background-color: #eee;
 		.friend-message{
-			padding-top: calc(88rpx + var(--status-bar-height));
+			padding-top: 88rpx
 		}
 		// padding: 0 32rpx;
 		.top{

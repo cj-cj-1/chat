@@ -28,7 +28,7 @@
   background-color: #fff;
 }
 .groupmember.data-v-b8a0b164 {
-  padding: calc(108rpx + 25px) 32rpx 10rpx;
+  padding: 108rpx 32rpx 10rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;

@@ -1,12 +1,12 @@
 <template>
-	<view class="bottom">
+	<view class="bottom" :style="{bottom:keyboardheight+'px'}">
 		<view class="send-message">
 			<view class="" @click="changekeyBoardhandler">
 				<image src="/static/image/voice.png" mode="" :class="{hide: voice}"></image>
 				<image src="/static/image/keyboard.png" mode="" :class="{hide: !voice}"></image>
 			</view>
-			<textarea type="text" v-model="textContent" :class="{hide: voice}" auto-height="true" maxlength="-1" @input="inputHandler" @focus="textFoucsHandler"/>
-			<text :class="{speak: true,hide: !voice}" @touchstart="voiceClickHandler" @touchend="voiceEndHandler" @touchmove="voiceMoveHandler">按住说话</text>
+			<textarea type="text" v-model="textContent" :class="{hide: voice}" :adjust-position="false" auto-height="true" maxlength="-1" @input="inputHandler" @focus="textFoucsHandler" @keyboardheightchange="keyboardheightchange" />
+			<text :class="{speak: true,hide: !voice}"  @touchstart="voiceClickHandler" @touchend="voiceEndHandler" @touchmove="voiceMoveHandler">按住说话</text>
 			<image src="/static/image/emoji.png" mode="" class="emoji" @click="emojiClickHandler" ></image>
 			<image src="/static/image/morechange.png" mode="" @click="fileClickHandler" :class="{hide: !send}"></image>
 			<view :class="{send:true,hide:send}" @click="sendClick">发送</view>
@@ -51,6 +51,7 @@
 				isCancelRecord: false,	//是否取消录音
 				pageY:'',				//目前移动的位置
 				Recordthrottle: false,	//判断是否已经发送过取消录音给父组件
+				keyboardheight: 0
 			}
 		},
 		props:{
@@ -72,7 +73,7 @@
 			},
 			isgroup:{
 				type:String
-			},
+			}
 		},
 		methods: {
 			//切换键盘和录音
@@ -85,17 +86,29 @@
 			//获取高度
 			getBottomElementHeight(){
 				this.$nextTick(function(){
-					const query = uni.createSelectorQuery().in(this);
-					query.select('.bottom').boundingClientRect(data => {
-						// console.log(this.height,"  ", data.height)
-						if(this.height != data.height){
-							this.height = data.height
-							this.$emit("getBottomHeight", data.height)
-						}
-						
-					}).exec();
+					setTimeout(()=>{
+						const query = uni.createSelectorQuery().in(this);
+						query.select('.bottom').boundingClientRect(data => {
+							// console.log("data", data)
+							if(this.height != data.height){
+								this.height = data.height
+								this.$emit("getBottomHeight", data.height + this.keyboardheight)
+							}
+							
+						}).exec();
+					},50)
 				})
 			},
+			keyboardheightchange(e){
+				// console.log(e)
+				this.keyboardheight = e.detail.height
+				// console.log(this.keyboardheight,this.height,this.height+this.keyboardheight)
+				this.$emit("getBottomHeight", this.height+this.keyboardheight)
+			},
+			// blurHandler(){
+			// 	this.keyboardheight = 0
+			// 	this.$emit("getBottomHeight", this.height+this.keyboardheight)
+			// },
 			//判断高度，如果高度变化，需要发送给父组件
 			inputHandler(){
 				if(this.textContent != ''){
@@ -122,14 +135,16 @@
 						clearInterval(this.timer)
 						this.voiceLength = i
 						recorderManager.stop();
-						console.log(this.voiceLength,"时长")
+						
 					}
-					this.$emit("recordLengthHandler",i)
+					this.voiceLength = i
+					// console.log(this.voiceLength,"时长")
+					this.$emit("recordLengthHandler",this.voiceLength)
 				},1000)
 			},
 			//结束点击时
 			voiceEndHandler(){
-				// console.log(this.voiceLength)
+				console.log("stop",this.voiceLength)
 				this.$emit("RecardHandler",true)
 				recorderManager.stop();
 				if(this.timer){
@@ -232,7 +247,7 @@
 			let self = this;
 			recorderManager.onStop( async function (res) {
 				//如果不是取消录音的情况
-				if(!this.isCancelRecord){
+				if(!self.isCancelRecord){
 					console.log('recorder stop' + JSON.stringify(res));
 					self.voicePath = res.tempFilePath;
 					self.$emit("playHandler", self.voicePath)
@@ -248,12 +263,13 @@
 					})
 					// console.log(result)
 					if(result.statusCode == 200){
-						let content = JSON.stringify({name: result.data, time: this.voiceLength})
+						let content = JSON.stringify({name: result.data, time: self.voiceLength})
 						// 还没有测试
-						if(this.isgroup == 0){
-							this.sendMessage(content, 2)
+						console.log(content)
+						if(self.isgroup == 0){
+							self.sendMessage(content, 2)
 						}else{
-							this.sendGroupMessage(content, 2)
+							self.sendGroupMessage(content, 2)
 						}
 					}
 				}
@@ -276,7 +292,7 @@
 		display: flex;
 		align-items: center;
 		padding: 20rpx 30rpx;
-		background-color: #ddd;
+		background-color: #eee;
 		image{
 			width: 56rpx;
 			height: 56rpx;
@@ -317,7 +333,7 @@
 	.menu{
 		width: 100%;
 		height: 463rpx;
-		background-color: #ccc;
+		background-color: #eee;
 		overflow: hidden;
 		overflow-y: scroll;
 		padding-bottom: 120rpx;
@@ -348,6 +364,6 @@
 		align-items: center;
 		width: 100%;
 		height: 200rpx;
-		background-color: #ccc;
+		background-color: #eee;
 	}
 </style>

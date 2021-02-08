@@ -25,6 +25,10 @@
 /* 透明度 */
 /* 文章场景相关 */
 .top.data-v-45dadcd0 {
+  position: fixed;
+  top: 25px;
+  left: 0;
+  right: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -32,8 +36,8 @@
   -webkit-align-items: center;
           align-items: center;
   height: 88rpx;
-  border-bottom: 1rpx solid #eee;
-  background-color: #fff;
+  background-color: #f7f7f7;
+  border-bottom: 1rpx solid #ddd;
 }
 .top image.data-v-45dadcd0 {
   width: 50rpx;

@@ -26,7 +26,6 @@
 /* 文章场景相关 */
 .chat.data-v-bf16e7f4 {
   height: 100vh;
-  padding-top: 25px;
 }
 .chat .hide.data-v-bf16e7f4 {
   display: none !important;

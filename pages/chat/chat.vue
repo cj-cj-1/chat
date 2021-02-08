@@ -1,8 +1,8 @@
 <template>
-	<view class="chat">
+	<view class="chat" >
 		<top :friendname="friendname" :groupname="groupname" :isgroup="isgroup" :userid="userid" :groupid="groupid" :friendid="friendid" ></top>
-		<view :class="{mask:true, hide:hideMask}" :style="{bottom:bottomHeight+'px'}" @recordLengthHandler="recordLengthHandler">
-			<view class="time-length" :style="{width:recordLength*4+'px'}">{{recordLength}}"</view>
+		<view :class="{mask:true, hide:hideMask}" :style="{bottom:bottomHeight+'px'}" >
+			<view class="time-length" :style="{width:recordLength*4+'px'}">{{recordLength}}{{second}}</view>
 			<view class="tip">上滑取消录音</view>
 		</view>
 		<message 
@@ -23,6 +23,7 @@
 		@getBottomHeight="getBottomHeight" 
 		@playHandler="playHandler"
 		@RecardHandler="RecardHandler"
+		@recordLengthHandler="recordLengthHandler"
 		:friendid="friendid" 
 		:userid="userid" 
 		:imgurl="ownImgurl" 
@@ -54,12 +55,13 @@
 				bottomHeight: 48,
 				scrollTo:'',
 				voicePath:'',
-				recordLength: '11'		,//录音计时
+				recordLength: '0'		,//录音计时
 				hideMask: true,
 				ownImgurl: '',
 				groupname:'',
 				groupid:'',
-				isgroup:''
+				isgroup:'',
+				second:`"`,
 				
 			}
 		},
@@ -82,10 +84,11 @@
 			},
 			//动态获取底部高度
 			getBottomHeight(height){
-				// console.log("底部整体高度",height)
+				console.log("底部整体高度",height)
 				this.bottomHeight = height
 				this.changeScrollTo()
 			},
+			
 			changeScrollTo(num){
 				// console.log("12345")
 				// console.log(num)
@@ -106,6 +109,7 @@
 				}
 			},
 			recordLengthHandler(len){
+				console.log("len",len)
 				this.recordLength = len
 			},
 			playHandler(voicePath){
@@ -134,19 +138,15 @@
 			// 获取用户id
 			this.userid = getUserid()
 			this.getUserDetail()
+			
 		},
 	}
 </script>
 
 <style lang="scss" scoped>
-	// page{
-	// 	// height:100%;
-	// 	// height: 100vh;
-	// }
+	
 	.chat{
 		height: 100vh;
-		padding-top: var(--status-bar-height);
-		
 		.hide{
 			//因为mask设置了display为flex，为了能够层叠掉这个类，所以要设置为！important
 			display: none !important;

@@ -122,7 +122,7 @@
 		background-color: #fff;
 	}
 	.groupmember{
-		padding: calc(108rpx + var(--status-bar-height)) 32rpx 10rpx;
+		padding: 108rpx 32rpx 10rpx;
 		display: flex;
 		align-items: center;
 		

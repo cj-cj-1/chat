@@ -173,6 +173,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUserid.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var top = function top() {__webpack_require__.e(/*! require.ensure | pages/chat/components/top/top */ "pages/chat/components/top/top").then((function () {return resolve(__webpack_require__(/*! ./components/top/top.vue */ 149));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var message = function message() {Promise.all(/*! require.ensure | pages/chat/components/message/message */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/chat/components/message/message")]).then((function () {return resolve(__webpack_require__(/*! ./components/message/message.vue */ 156));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var bottom = function bottom() {Promise.all(/*! require.ensure | pages/chat/components/bottom/bottom */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/chat/components/bottom/bottom")]).then((function () {return resolve(__webpack_require__(/*! ./components/bottom/bottom.vue */ 163));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
@@ -190,12 +191,13 @@ var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUse
     48), _defineProperty(_ref, "scrollTo",
     ''), _defineProperty(_ref, "voicePath",
     ''), _defineProperty(_ref, "recordLength",
-    '11'), _defineProperty(_ref, "hideMask",
+    '0'), _defineProperty(_ref, "hideMask",
     true), _defineProperty(_ref, "ownImgurl",
     ''), _defineProperty(_ref, "groupname",
     ''), _defineProperty(_ref, "groupid",
     ''), _defineProperty(_ref, "isgroup",
-    ''), _ref;
+    ''), _defineProperty(_ref, "second", "\""), _ref;
+
 
 
   },
@@ -218,10 +220,11 @@ var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUse
     },
     //动态获取底部高度
     getBottomHeight: function getBottomHeight(height) {
-      // console.log("底部整体高度",height)
+      console.log("底部整体高度", height);
       this.bottomHeight = height;
       this.changeScrollTo();
     },
+
     changeScrollTo: function changeScrollTo(num) {
       // console.log("12345")
       // console.log(num)
@@ -242,6 +245,7 @@ var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUse
       }
     },
     recordLengthHandler: function recordLengthHandler(len) {
+      console.log("len", len);
       this.recordLength = len;
     },
     playHandler: function playHandler(voicePath) {
@@ -270,6 +274,7 @@ var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUse
     // 获取用户id
     this.userid = (0, _getUserid.default)();
     this.getUserDetail();
+
   } };exports.default = _default;
 
 /***/ }),

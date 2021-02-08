@@ -99,7 +99,7 @@
 						let friendid = that.friendid
 						content = JSON.stringify(content)
 						console.log(content)
-						if(this.isgroup == 0){
+						if(that.isgroup == 0){
 							that.sendMessage(content, 3)
 						}else{
 							that.sendGroupMessage(content, 3)

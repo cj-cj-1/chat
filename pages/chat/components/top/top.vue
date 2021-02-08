@@ -75,11 +75,17 @@
 
 <style lang="scss" scoped>
 	.top{
+		position: fixed;
+		top: var(--status-bar-height);
+		left: 0;
+		right: 0;
+		// padding-top: 
 		display: flex;
 		align-items: center;
 		height: 88rpx;
-		border-bottom: 1rpx solid #eee;
-		background-color: #fff;
+		background-color: #f7f7f7;
+		border-bottom: 1rpx solid #ddd;
+		// background-color: #fff;
 		image{
 			width: 50rpx;
 			height: 50rpx;

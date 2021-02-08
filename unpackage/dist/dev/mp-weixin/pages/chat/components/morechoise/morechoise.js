@@ -203,7 +203,7 @@ var _uuid = __webpack_require__(/*! @/util/js/uuid.js */ 169);function _interopR
     clickMapHandler: function clickMapHandler() {
       var that = this;
       uni.chooseLocation({
-        success: function success(res) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var content, userid, friendid;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+        success: function success(res) {return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var content, userid, friendid;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                     content = {
                       name: res.name,
                       address: res.address,
@@ -215,7 +215,7 @@ var _uuid = __webpack_require__(/*! @/util/js/uuid.js */ 169);function _interopR
                     friendid = that.friendid;
                     content = JSON.stringify(content);
                     console.log(content);
-                    if (_this2.isgroup == 0) {
+                    if (that.isgroup == 0) {
                       that.sendMessage(content, 3);
                     } else {
                       that.sendGroupMessage(content, 3);

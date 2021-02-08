@@ -282,7 +282,12 @@
 								// that.socket.emit("logout",that.userid)
 								if(that.socket){
 									that.socket.close()
-									Vue.prototype.socket = io('http://localhost:3002')
+									Vue.prototype.socket = io('http://192.168.1.102:3002',{
+										transports: ['websocket'], // 此项必须设置
+										reconnectionAttempts: 3, // 失败后重新连接次数，一直失败总共尝试四次
+										reconnectionDelay: 2000, // 重新连接间隔时间毫秒
+										forceNew: true,
+									})
 								}
 								
 								uni.reLaunch({
@@ -327,15 +332,18 @@
 </script>
 
 <style lang="scss" scoped>
+	page{
+		// height:100%;
+		height: 100vh;
+	}
 	.profile{
 		position: absolute;
 		left:0;
-		top: 0;
+		top: var(--status-bar-height);;
 		right: 0;
-		// bottom: 0;
-		min-height: 100%;
+		bottom: 0;
+		// min-height: 100%;
 		padding-bottom: var(--window-bottom);
-		padding-top: var(--status-bar-height);
 		background-color: #eee;
 		.top{
 			height: 88rpx;

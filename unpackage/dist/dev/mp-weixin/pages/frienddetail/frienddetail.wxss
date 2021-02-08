@@ -29,7 +29,7 @@
   background-color: #eee;
 }
 .friend-detail .friend-message.data-v-a8331734 {
-  padding-top: calc(88rpx + 25px);
+  padding-top: 88rpx;
 }
 .friend-detail .top.data-v-a8331734 {
   padding-top: 25px;

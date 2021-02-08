@@ -43,14 +43,14 @@ export function formatDate(time){
 //获得图片地址
 export function getImageUrl(url){
 	// return "http://localhost:3001/user/" + url
-	return "http://localhost:3001" + url
+	return "http://192.168.1.102:3001" + url
 	// return "http://192.168.43.207:3001" + url
 }
 
 //获得录音地址
 export function getRecordUrl(url){
 	// return "http://localhost:3001/user/" + url
-	return "http://localhost:3001" + url
+	return "http://192.168.1.102:3001" + url
 	// return "http://192.168.43.207:3001" + url
 }
 

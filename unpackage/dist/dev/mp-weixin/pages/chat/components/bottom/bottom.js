@@ -166,8 +166,9 @@ var recorderManager = uni.getRecorderManager();var _default =
       voiceLength: '', //录音长度
       isCancelRecord: false, //是否取消录音
       pageY: '', //目前移动的位置
-      Recordthrottle: false //判断是否已经发送过取消录音给父组件
-    };
+      Recordthrottle: false, //判断是否已经发送过取消录音给父组件
+      keyboardheight: 0 };
+
   },
   props: {
     userid: {
@@ -201,16 +202,28 @@ var recorderManager = uni.getRecorderManager();var _default =
     //获取高度
     getBottomElementHeight: function getBottomElementHeight() {
       this.$nextTick(function () {var _this = this;
-        var query = uni.createSelectorQuery().in(this);
-        query.select('.bottom').boundingClientRect(function (data) {
-          // console.log(this.height,"  ", data.height)
-          if (_this.height != data.height) {
-            _this.height = data.height;
-            _this.$emit("getBottomHeight", data.height);
-          }
+        setTimeout(function () {
+          var query = uni.createSelectorQuery().in(_this);
+          query.select('.bottom').boundingClientRect(function (data) {
+            // console.log("data", data)
+            if (_this.height != data.height) {
+              _this.height = data.height;
+              _this.$emit("getBottomHeight", data.height);
+            }
 
-        }).exec();
+          }).exec();
+        }, 50);
       });
+    },
+    keyboardheightchange: function keyboardheightchange(e) {
+      console.log("jjjjjj");
+      this.keyboardheight = e.detail.height;
+      console.log(this.keyboardheight, this.height, this.height + this.keyboardheight);
+      this.$emit("getBottomHeight", this.height + this.keyboardheight);
+    },
+    blurHandler: function blurHandler() {
+      this.keyboardheight = 0;
+      this.$emit("getBottomHeight", this.height + this.keyboardheight);
     },
     //判断高度，如果高度变化，需要发送给父组件
     inputHandler: function inputHandler() {
@@ -238,14 +251,16 @@ var recorderManager = uni.getRecorderManager();var _default =
           clearInterval(_this2.timer);
           _this2.voiceLength = i;
           recorderManager.stop();
-          console.log(_this2.voiceLength, "时长");
+
         }
-        _this2.$emit("recordLengthHandler", i);
+        _this2.voiceLength = i;
+        // console.log(this.voiceLength,"时长")
+        _this2.$emit("recordLengthHandler", _this2.voiceLength);
       }, 1000);
     },
     //结束点击时
     voiceEndHandler: function voiceEndHandler() {
-      // console.log(this.voiceLength)
+      console.log("stop", this.voiceLength);
       this.$emit("RecardHandler", true);
       recorderManager.stop();
       if (this.timer) {
@@ -348,7 +363,7 @@ var recorderManager = uni.getRecorderManager();var _default =
     var self = this;
     recorderManager.onStop( /*#__PURE__*/function () {var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {var time, url, name, result, content;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (
 
-                this.isCancelRecord) {_context.next = 12;break;}
+                self.isCancelRecord) {_context.next = 12;break;}
                 console.log('recorder stop' + JSON.stringify(res));
                 self.voicePath = res.tempFilePath;
                 self.$emit("playHandler", self.voicePath);
@@ -364,14 +379,15 @@ var recorderManager = uni.getRecorderManager();var _default =
 
                 // console.log(result)
                 if (result.statusCode == 200) {
-                  content = JSON.stringify({ name: result.data, time: this.voiceLength });
+                  content = JSON.stringify({ name: result.data, time: self.voiceLength });
                   // 还没有测试
-                  if (this.isgroup == 0) {
-                    this.sendMessage(content, 2);
+                  console.log(content);
+                  if (self.isgroup == 0) {
+                    self.sendMessage(content, 2);
                   } else {
-                    this.sendGroupMessage(content, 2);
+                    self.sendGroupMessage(content, 2);
                   }
-                }case 12:case "end":return _context.stop();}}}, _callee, this);}));return function (_x) {return _ref.apply(this, arguments);};}());
+                }case 12:case "end":return _context.stop();}}}, _callee);}));return function (_x) {return _ref.apply(this, arguments);};}());
 
 
 

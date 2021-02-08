@@ -433,8 +433,6 @@ var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUse
               // console.log("kkkkkk")
               _this7.userid = (0, _getUserid.default)();_context7.next = 3;return (
                 _this7.getUserDetail());case 3:
-              // this.login()
-              // this.msg()
               _this7.receiveMessage();case 4:case "end":return _context7.stop();}}}, _callee7);}))();
   },
   onShow: function onShow() {var _this8 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
@@ -442,7 +440,7 @@ var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUse
               //而如果重新登录的话则需要重新获取缓存中的userid,所以必须在onShow中再次获取缓存的值
 
               _this8.userid = (0, _getUserid.default)();if (!
-              _this8.userid) {_context8.next = 14;break;}
+              _this8.userid) {_context8.next = 16;break;}
               _this8.login();
               _this8.msg();
               _this8.List = [];
@@ -453,11 +451,11 @@ var _getUserid = _interopRequireDefault(__webpack_require__(/*! @/util/js/getUse
               _this8.tabBarRedDot(_this8.unread, 0);
               _this8.tabBarNewFriendRedDot(_this8.friendListLength, 1);_context8.next = 12;return (
                 _this8.getUserDetail());case 12:_context8.next = 14;return (
-                _this8.getUserList());case 14:case "end":return _context8.stop();}}}, _callee8);}))();
+                _this8.getUserList());case 14:_context8.next = 17;break;case 16:
 
 
-
-
+              uni.navigateTo({
+                url: '/pages/login/login' });case 17:case "end":return _context8.stop();}}}, _callee8);}))();
 
 
   } };exports.default = _default;

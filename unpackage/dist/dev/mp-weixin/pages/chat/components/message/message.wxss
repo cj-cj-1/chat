@@ -25,12 +25,12 @@
 /* 透明度 */
 /* 文章场景相关 */
 .message.data-v-94069398 {
-  height: calc(100vh - 88rpx);
+  height: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: calc(88rpx + 25px);
   text-align: center;
-  background-color: #eee;
+  background-color: #f7f7f7;
 }
 .message .loading.data-v-94069398 {
   width: 40rpx;
@@ -40,10 +40,10 @@
   display: none;
 }
 .scroll-view.data-v-94069398 {
-  height: calc(100vh - 88rpx);
+  height: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: #eee;
+  background-color: #f7f7f7;
 }
 .scroll-view .main.data-v-94069398 {
   display: -webkit-box;
@@ -86,6 +86,7 @@
           border-radius: 0rpx 20rpx 20rpx 20rpx;
   background-color: #fff;
   margin-left: 20rpx;
+  text-align: left;
 }
 .message-item .bottom-left .image-left.data-v-94069398 {
   max-width: 300rpx;
@@ -160,6 +161,7 @@
           border-radius: 20rpx 0rpx 20rpx 20rpx;
   background-color: #fff157;
   margin-right: 20rpx;
+  text-align: left;
 }
 .message-item .bottom-right .image-right.data-v-94069398 {
   max-width: 300rpx;

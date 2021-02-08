@@ -287,8 +287,6 @@
 			// console.log("kkkkkk")
 			this.userid = getUserid()
 			await this.getUserDetail()
-			// this.login()
-			// this.msg()
 			this.receiveMessage()
 		},
 		async onShow(){
@@ -308,12 +306,12 @@
 				this.tabBarNewFriendRedDot(this.friendListLength,1)
 				await this.getUserDetail()
 				await this.getUserList()
-				// this.getGroupList()
-				
-				
-			}
-			
-			
+				// this.getGroupList()	
+			}else{
+				uni.navigateTo({
+					url:'/pages/login/login'
+				})
+			}	
 		}
 }
 </script>

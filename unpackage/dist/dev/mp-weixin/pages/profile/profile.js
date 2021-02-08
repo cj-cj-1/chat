@@ -427,7 +427,12 @@ var _format = __webpack_require__(/*! @/util/js/format.js */ 56);function _inter
             // that.socket.emit("logout",that.userid)
             if (that.socket) {
               that.socket.close();
-              _vue.default.prototype.socket = (0, _weappSocketIo.default)('http://localhost:3002');
+              _vue.default.prototype.socket = (0, _weappSocketIo.default)('http://192.168.1.102:3002', {
+                transports: ['websocket'], // 此项必须设置
+                reconnectionAttempts: 3, // 失败后重新连接次数，一直失败总共尝试四次
+                reconnectionDelay: 2000, // 重新连接间隔时间毫秒
+                forceNew: true });
+
             }
 
             uni.reLaunch({

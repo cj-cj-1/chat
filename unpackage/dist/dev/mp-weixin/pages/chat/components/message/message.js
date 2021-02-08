@@ -214,7 +214,8 @@ var newTime = new Date();var _default =
       timer: '',
       recordPlay: {}, //声音要播放还是暂停
       record: '', //当前的录音地址
-      recordArr: [] //所有录音的地址
+      recordArr: [], //所有录音的地址
+      second: "\"" //秒
     };
   },
   props: {
@@ -258,10 +259,13 @@ var newTime = new Date();var _default =
 
 
   methods: {
+    // getMessage(){
+    // 	console.log("getMessage")
+    // },
     //请求数据
     getMessage: function getMessage() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var animation, i, userid, friendid, skipNum, pageSize, result, groupid, data, _this$messageList, _i, name;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 _this.skipNum = _this.messageList.length;
-                console.log(_this.skipNum);
+                // console.log(this.messageList)
                 //请求数据显示loading
                 _this.loading = false;
                 animation = uni.createAnimation({
@@ -278,32 +282,31 @@ var newTime = new Date();var _default =
 
                 //节流阀，防止多次请求数据，需要等处理完一次请求数据后才可以重新请求
                 _this.throttle = false;
-                // console.log("1234")
                 userid = _this.userid;
                 friendid = _this.friendid;
                 // console.log(userid, friendid)
                 skipNum = _this.skipNum;
                 pageSize = 11;if (!(
 
-                _this.isgroup == 0)) {_context.next = 17;break;}_context.next = 14;return (
+                _this.isgroup == 0)) {_context.next = 16;break;}_context.next = 13;return (
                   _this.$myHttp({
                     url: '/message/load-more',
                     data: {
                       userid: userid,
                       friendid: friendid,
                       skipNum: skipNum,
-                      pageSize: pageSize } }));case 14:result = _context.sent;_context.next = 21;break;case 17:
+                      pageSize: pageSize } }));case 13:result = _context.sent;_context.next = 20;break;case 16:
 
 
 
-                groupid = _this.groupid;_context.next = 20;return (
+                groupid = _this.groupid;_context.next = 19;return (
                   _this.$myHttp({
                     url: '/message/load-groupmsg',
                     data: {
                       userid: userid,
                       groupid: groupid,
                       skipNum: skipNum,
-                      pageSize: pageSize } }));case 20:result = _context.sent;case 21:
+                      pageSize: pageSize } }));case 19:result = _context.sent;case 20:
 
 
 
@@ -347,7 +350,7 @@ var newTime = new Date();var _default =
                   //清除定时器，隐藏loading
                   clearInterval(_this.timer);
                   _this.loading = true;
-                }case 22:case "end":return _context.stop();}}}, _callee);}))();
+                }case 21:case "end":return _context.stop();}}}, _callee);}))();
     },
     //接收socket消息
     receiveMessage: function receiveMessage() {var _this2 = this;

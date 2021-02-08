@@ -1,7 +1,7 @@
 <template>
 	<view class="message" :style="{paddingBottom:bottomHeight+'px'}" >
 		<image src="/static/image/loading.png" mode="" :class="{loading:true, hide: loading}" :animation="animatonData"></image>
-		<scroll-view scroll-y="true" :scroll-top="scrollTop" class="scroll-view" :scroll-into-view="scrollTo" @scrolltoupper="scrollToUpperRefresh" :style="{paddingBottom:bottomHeight+'px'}">
+		<scroll-view scroll-y="true" :scroll-top="scrollTop" class="scroll-view" :scroll-into-view="scrollTo" @scrolltoupper="scrollToUpperRefresh" >
 			<view class="main" >
 				<view class="message-item" v-for="(item, index) in messageList" :key="index" :id="'msg' + index">
 					<view class="" v-if="item.userid !== userid">
@@ -14,7 +14,7 @@
 								<image :src="item.content" mode="widthFix" class="image-left" v-if="item.type==1" @click="previewHandler(item.content)"></image>
 								<view class="record" v-if="item.type==2" :style="{width:item.content.time*4+'px'}" @click="playRecordHandler(item.content.name)">
 									<image src="/static/image/record.png" mode=""></image>
-									<view class="record-time">{{item.content.time}}"</view>
+									<view class="record-time">{{item.content.time}}{{second}}</view>
 								</view>
 								<view class="map-info"v-if="item.type==3" @click="mapClickHandler(item.content.latitude,item.content.longitude)">
 									<view class="name">
@@ -36,7 +36,7 @@
 							<image :src="item.content" mode="widthFix" class="image-right" v-if="item.type==1" @click="previewHandler(item.content)"></image>
 							<view class="record" v-if="item.type==2" :style="{width:item.content.time*4+'px'}" @click="playRecordHandler(item.content.name)">
 								<image src="/static/image/record.png" mode=""></image>
-								<view class="record-time">{{item.content.time}}"</view>
+								<view class="record-time">{{item.content.time}}{{second}}</view>
 								<view class="dot"></view>
 							</view>
 							<view class="map-info"v-if="item.type==3" @click="mapClickHandler(item.content.latitude,item.content.longitude)">
@@ -78,7 +78,8 @@
 				timer: '',
 				recordPlay:{},			//声音要播放还是暂停
 				record: '',				//当前的录音地址
-				recordArr:[]			//所有录音的地址
+				recordArr:[],			//所有录音的地址
+				second:`"`				//秒
 			}
 		},
 		props:{
@@ -122,10 +123,13 @@
 			},
 		},
 		methods: {
+			// getMessage(){
+			// 	console.log("getMessage")
+			// },
 			//请求数据
 			async getMessage(){
 				this.skipNum = this.messageList.length
-				console.log(this.skipNum)
+				// console.log(this.messageList)
 				//请求数据显示loading
 				this.loading = false
 				let animation = uni.createAnimation({
@@ -142,7 +146,6 @@
 				
 				//节流阀，防止多次请求数据，需要等处理完一次请求数据后才可以重新请求
 				this.throttle = false
-				// console.log("1234")
 				let userid = this.userid
 				let friendid = this.friendid
 				// console.log(userid, friendid)
@@ -343,12 +346,14 @@
 
 <style lang="scss" scoped>
 	.message{
-		height: calc(100vh - 88rpx);
+		// height: calc(100% - 88rpx - var(--status-bar-height));
+		height: 100%;
 		//这里需要设置为boder-box,要不然padding-bottom不会加在高度里面，导致message高度大于整个页面，会有滚动条
 		box-sizing: border-box;
-		padding-bottom: env(safe-area-inset-bottom);
+		// padding-bottom: env(safe-area-inset-bottom);
+		padding-top: calc(88rpx + var(--status-bar-height));
 		text-align: center;
-		background-color: #eee;
+		background-color: #f7f7f7;
 		.loading{
 			width: 40rpx;
 			height: 40rpx;
@@ -358,11 +363,11 @@
 		}
 	}
 	.scroll-view{
-		// height: 100%;
-		height: calc(100vh - 88rpx);
+		height: 100%;
+		// height: calc(100vh - 88rpx);
 		//这里需要设置为boder-box,要不然padding-bottom不会加在高度里面，导致message高度大于整个页面，会有滚动条
 		box-sizing: border-box;
-		background-color: #eee;
+		background-color:#f7f7f7;
 		.main{
 			display: flex;
 			flex-direction: column-reverse;
@@ -394,6 +399,7 @@
 				border-radius: 0rpx 20rpx 20rpx 20rpx;
 				background-color: #fff;
 				margin-left:20rpx;
+				text-align: left;
 			}
 			.image-left{
 				max-width: 300rpx;
@@ -457,6 +463,7 @@
 				border-radius: 20rpx 0rpx 20rpx 20rpx;
 				background-color: #fff157;
 				margin-right:20rpx;
+				text-align: left;
 			}
 			.image-right{
 				max-width: 300rpx;
